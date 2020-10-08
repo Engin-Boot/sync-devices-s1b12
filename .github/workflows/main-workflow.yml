@@ -1,0 +1,23 @@
+name: Build and Run
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: get paho.mqtt.c client library
+      run: git clone https://github.com/eclipse/paho.mqtt.c.git
+    
+    - name: build paho.mqtt.c client
+      run:  |
+            cd paho.mqtt.c
+            make -j
+            sudo make install

@@ -48,6 +48,7 @@ void display_main_menu()
     cout << "2. Edit current patient data" << endl;
     cout << "3. View current patient data" << endl;
     cout << "4. View Patient Count" << endl;
+    cout << "5. Exit" << endl;
     cout << endl;
     fflush(stdout);
 }
@@ -198,7 +199,12 @@ void serialize_and_publish(MQTTAsync& client, MQTTAsync_responseOptions& pub_opt
 
 void view_patient_count()
 {
-    cout << patient_stack.size() << endl;
+    cout << "Total Patient Count: " << patient_stack.size() << endl;
+}
+
+void exit_client()
+{
+    exit(EXIT_SUCCESS);
 }
 
 void repeat_until_finished(MQTTAsync& client, MQTTAsync_responseOptions& pub_opts)
@@ -209,6 +215,7 @@ void repeat_until_finished(MQTTAsync& client, MQTTAsync_responseOptions& pub_opt
     functions_map.emplace(2, &edit_current_patient_data);
     functions_map.emplace(3, &view_current_patient_data);
     functions_map.emplace(4, &view_patient_count);
+    functions_map.emplace(5, &exit_client);
     cin >> choice;
 
     call_script_corresponding_to_choice(functions_map, choice);

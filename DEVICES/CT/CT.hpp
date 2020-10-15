@@ -26,6 +26,7 @@ void edit_consumables_used();
 void display_data(Patient& p);
 void view_patient_count();
 void edit_all();
+void exit_client();
 void call_script_corresponding_to_choice(script_map& m, const int choice);
 void edit_current_patient_data();
 void serialize_and_publish(MQTTAsync& client, MQTTAsync_responseOptions& pub_opts);

@@ -10,7 +10,6 @@ typedef void (*ScriptFunction)(void); // function pointer type
 typedef unordered_map<int, ScriptFunction> script_map;
 
 extern stack<Patient> patient_stack;
-extern int patient_count;
 
 Patient get_patient_information();
 Patient pop_and_return_patient();

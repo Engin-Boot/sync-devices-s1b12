@@ -15,7 +15,6 @@ int subscribed;
 int toStop;
 int disconnected;
 stack<Patient> patient_stack;
-int patient_count;
 
 // Global variables visible to current translation unit only
 
@@ -55,7 +54,6 @@ int main(int argc, char** argv)
         sleep(5);
         display_main_menu();
         repeat_until_finished(client, pub_opts);
-        patient_count = patient_stack.size();
         sleep(5);
 	}
 

@@ -19,7 +19,7 @@ Patient get_patient_information()
     cout << "Consumables Used: ";
     cin >> consumables_used;
 
-    Patient p(age, name, gender, procedure, consumables_used);
+    Patient p(0, age, name, gender, procedure, consumables_used);
     return p;
 }
 
@@ -32,11 +32,12 @@ Patient UnFlatten(const string& str)
         contents.push_back(token);
     }
     Patient temp;
-    temp.setName(contents[1]);
-    temp.setAge(stoi(contents[2]));
-    temp.setGender(contents[3]);
-    temp.setProcedure(contents[4]);
-    temp.setConsumables_used(contents[5]);
+    temp.setID(stoi(contents[1]));
+    temp.setName(contents[2]);
+    temp.setAge(stoi(contents[3]));
+    temp.setGender(contents[4]);
+    temp.setProcedure(contents[5]);
+    temp.setConsumables_used(contents[6]);
     return temp;
 }
 
@@ -46,35 +47,41 @@ void display_main_menu()
     cout << "1. Add a new patient" << endl;
     cout << "2. Edit current patient data" << endl;
     cout << "3. View current patient data" << endl;
-    cout << "4. View total patient count" << endl;
+    cout << "4. View Patient Count" << endl;
     cout << endl;
+    fflush(stdout);
 }
 
 void display_edit_menu()
 {
-    cout << "1. Edit name" << endl;
+    cout << "\n1. Edit name" << endl;
     cout << "2. Edit age" << endl;
     cout << "3. Edit gender" << endl;
     cout << "4. Edit procedure" << endl;
     cout << "5. Edit consumables used" << endl;
     cout << "6. Edit all fields" << endl;
+    cout << endl;
+    fflush(stdout);
 }
 
 void add_patient()
 {
     Patient p;
     p = get_patient_information();
+    int patient_id = patient_stack.size();
+    p.setID(patient_id);
     patient_stack.emplace(p);
 }
 
 void display_data(Patient& p)
 {
-    cout << "Patient details: " << endl;
-    cout << "Name: " << p.getName() << endl;
-    cout << "Age: " << p.getName() << endl;
-    cout << "Gender: " << p.getGender() << endl;
-    cout << "Procedure: " << p.getProcedure() << endl;
-    cout << "Consumables Used: " << p.getConsumables_used() << endl;
+    cout << "\nPatient details: " << endl;
+    cout << "\n\tName: " << p.getName() << endl;
+    cout << "\tAge: " << p.getAge() << endl;
+    cout << "\tGender: " << p.getGender() << endl;
+    cout << "\tProcedure: " << p.getProcedure() << endl;
+    cout << "\tConsumables Used: " << p.getConsumables_used() << endl;
+    fflush(stdout);
 }
 
 void view_current_patient_data()
@@ -151,9 +158,10 @@ void edit_consumables_used()
 
 void edit_all()
 {
-    patient_stack.pop();
-    Patient p;
+    Patient p = pop_and_return_patient();
+    int patient_id = p.getID();
     p = get_patient_information();
+    p.setID(patient_id);
     patient_stack.emplace(p);
 }
 
@@ -190,7 +198,7 @@ void serialize_and_publish(MQTTAsync& client, MQTTAsync_responseOptions& pub_opt
 
 void view_patient_count()
 {
-    cout << "Total Patient Count: " << patient_count << endl;
+    cout << patient_stack.size() << endl;
 }
 
 void repeat_until_finished(MQTTAsync& client, MQTTAsync_responseOptions& pub_opts)
@@ -201,7 +209,6 @@ void repeat_until_finished(MQTTAsync& client, MQTTAsync_responseOptions& pub_opt
     functions_map.emplace(2, &edit_current_patient_data);
     functions_map.emplace(3, &view_current_patient_data);
     functions_map.emplace(4, &view_patient_count);
-
     cin >> choice;
 
     call_script_corresponding_to_choice(functions_map, choice);

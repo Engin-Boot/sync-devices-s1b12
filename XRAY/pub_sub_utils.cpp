@@ -17,15 +17,60 @@ void mysleep(int ms)
 	usleep(ms * 1000);
 }
 
+bool is_patient_stack_empty()
+{
+	return patient_stack.empty();
+}
+
+Patient deserialize(MQTTAsync_message* message)
+{
+	Patient p;
+	p = UnFlatten((char*)message->payload);
+	return p;
+}
+
+void add_patient_if_stack_empty(MQTTAsync_message *message)
+{
+	if(is_patient_stack_empty())
+	{
+		Patient p = deserialize(message);
+		patient_stack.emplace(p);
+	}
+}
+
+bool patient_exists(Patient& p)
+{
+	return patient_stack.top().getID() == p.getID();
+}
+
+
+void update_or_add_patient(Patient& p)
+{
+	if(patient_exists(p))
+	{
+		patient_stack.pop();	
+	}
+	patient_stack.emplace(p);
+}
+
+void add_patient_if_stack_not_empty(MQTTAsync_message *message)
+{
+	if(!is_patient_stack_empty())
+	{
+		Patient p = deserialize(message);
+		update_or_add_patient(p);
+	}
+}
+
 int messageArrived(void *context, char *topicName, int topicLen, MQTTAsync_message *message)
 {
     vector<string> temp;
     temp = split((char*)message->payload, '|');
     if(opts.clientid != temp[0])
     {
-        Patient p;
-		p = UnFlatten((char*)message->payload);
-		patient_stack.emplace(p);
+		
+		add_patient_if_stack_not_empty(message);
+		add_patient_if_stack_empty(message);
     }
 	fflush(stdout);
 	MQTTAsync_freeMessage(&message);

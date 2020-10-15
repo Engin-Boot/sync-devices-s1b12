@@ -15,7 +15,7 @@
 #include <unistd.h>
 
 #define TOPIC "MedicalDevice"
-#define CLIENT_ID "XRAY_1"
+#define CLIENT_ID "XRAY"
 #define BROKER_URL "tcp://localhost:1883"
 
 using namespace std;
@@ -70,4 +70,16 @@ void set_callbacks(MQTTAsync& client);
 void disconnect_client(MQTTAsync& client, MQTTAsync_disconnectOptions& disc_opts);
 
 void publish(MQTTAsync& client, MQTTAsync_responseOptions& pub_opts, string& data);
+
+bool is_patient_stack_empty();
+
+Patient deserialize(MQTTAsync_message* message);
+
+void add_patient_if_stack_empty(MQTTAsync_message *message);
+
+bool patient_exists(Patient& p);
+
+void update_or_add_patient(Patient& p);
+
+void add_patient_if_stack_not_empty(MQTTAsync_message *message);
 

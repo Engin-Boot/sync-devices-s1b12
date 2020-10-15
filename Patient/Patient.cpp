@@ -3,12 +3,23 @@
 #include <sstream>
 #include <vector>
 #include "Patient.hpp"
- 
+
+
+void Patient::setID(int id)
+{
+    this->id = id;
+}
+
+int Patient::getID()
+{
+    return this->id;
+}
+
 string Patient::toString()
 {
-    return name + "|" + to_string(this->age)+ "|" + this->gender + "|" + procedure + "|" + consumables_used;
+    return to_string(id) + "|" + name + "|" + to_string(this->age)+ "|" + this->gender + "|" + procedure + "|" + consumables_used;
 }
- 
+
 void Patient::setName(const string& name)
 {
     this->name = name;
@@ -39,8 +50,6 @@ void Patient:: setConsumables_used(const string& consumables_used)
     this->consumables_used = consumables_used;
 }
 
-
- 
 int Patient :: getAge()
 {
     return this->age;

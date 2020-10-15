@@ -2,7 +2,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "Patient.h"
+#include "Patient.hpp"
 
 string Patient::toString()
 {
@@ -12,6 +12,11 @@ string Patient::toString()
 void Patient::setName(const string& name)
 {
     this->name = name;
+}
+
+string Patient :: getName()
+{
+    return this->name;
 }
 
 void Patient::setAge(int age)
@@ -34,10 +39,7 @@ void Patient:: setConsumables_used(const string& consumables_used)
     this->consumables_used = consumables_used;
 }
 
-string Patient :: getName()
-{
-    return this->name;
-}
+
 
 int Patient :: getAge()
 {

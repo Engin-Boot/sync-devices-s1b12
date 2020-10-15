@@ -12,7 +12,7 @@ class Patient
     public:
         Patient():age(0), name("none"), gender('X'), procedure("none"), consumables_used("none") {}
         Patient(int age, const string& name, char gender, const string& procedure, const string& consumables_used)
-            :age(age), name(name), gender(gender), procedure("none"), consumables_used("none"){} 
+            :age(age), name(name), gender(gender), procedure(procedure), consumables_used(consumables_used){} 
 
         string toString();
  

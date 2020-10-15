@@ -10,4 +10,11 @@ jobs:
   build:
   runs-on: ubuntu-latest
 
-  cppcheck --enable=all --error-exitcode=1 --suppress=missingIncludeSystem  Patient/Patient.cpp 
+  steps:
+    - uses: actions/checkout@v2
+    
+    - name: install cppcheck static analysis
+      run: sudo apt-get update && sudo apt-get install -y cppcheck
+            
+    - name: static analysis
+      run: cppcheck --enable=all --error-exitcode=1 .

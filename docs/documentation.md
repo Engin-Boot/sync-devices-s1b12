@@ -15,6 +15,13 @@
 
 ## Asynchronous MQTT for Data synchronization between devices
 
+### Prerequisites
+
+    - git clone https://github.com/eclipse/paho.mqtt.c.git
+    - cd paho.mqtt.c
+    - make -j
+    - sudo make install
+
 ### Build
 
 ```./build_all_devices.sh```

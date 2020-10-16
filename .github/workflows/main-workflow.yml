@@ -21,4 +21,13 @@ jobs:
             cd paho.mqtt.c
             make -j
             sudo make install
+    
+    - name: build CT Client
+      run:  g++ DEVICES/CT/*.cpp Patient/*.cpp -o CT_CLIENT -lpaho-mqtt3as
+    
+    - name: build X-RAY Client
+      run: g++ DEVICES/XRAY/*.cpp Patient/*.cpp -o XRAY_CLIENT -lpaho-mqtt3as
+    
+    - name: build ULTRASOUND Client
+      run: g++ DEVICES/ULTRASOUND/*.cpp Patient/*.cpp -o ULTRASOUND_CLIENT -lpaho-mqtt3as
             

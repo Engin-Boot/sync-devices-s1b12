@@ -6,7 +6,7 @@
 #include "../Patient/Patient.hpp"
 
 using namespace std;
-TEST_CASE("testing get information function"){
+TEST_CASE("when get_patient_information is called,then the patient information is fetched"){
     Patient p = CT::get_patient_information();
     //cout<<p;
     int i = 0;
@@ -15,7 +15,7 @@ TEST_CASE("testing get information function"){
     }
     REQUIRE(i==1);
 }
-TEST_CASE("testing get information function for false"){
+TEST_CASE("when patient information is wrongly stored,then we will getting false result"){
     Patient p = CT::get_patient_information();
     //cout<<p;
     int i = 0;
@@ -24,7 +24,7 @@ TEST_CASE("testing get information function for false"){
     }
     REQUIRE(i==0);
 }
-TEST_CASE("Test for UnFlatten function"){
+TEST_CASE("when passed an flattened string to UnFlatten function,then it splits the string and stores the Patient details into patient object"){
     string s = "0|chandan|15|M|ABC|XYZ";
     Patient p = CT::UnFlatten(s);
     int i = 0;
@@ -33,7 +33,7 @@ TEST_CASE("Test for UnFlatten function"){
     }
     REQUIRE(i == 1);
 }
-TEST_CASE("Test for UnFlatten function for false"){
+TEST_CASE("when passed an flattened string to UnFlatten function,then if the patient info is not unflattened properly the wrong Patient info is stored"){
     string s = "0|chandan|15|M|ABC|XYZ";
     Patient p = CT::UnFlatten(s);
     int i = 0;

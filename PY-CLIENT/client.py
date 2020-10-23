@@ -85,4 +85,77 @@ def add_patient():
     client.publish("MedicalDevice", s1)
     while not client.published:
         time.sleep(1)
+      
+def view_patient_details():
+    print("\nPatient details: ")
+    print("\n\tName: "+Name)
+    print("\tAge: " +Age)
+    print("\tGender: "+Gender)
+    print("\tProcedure: "+Procedure)
+    print("\tConsumables Used: "+Consumables_used)
+
+def exit_function():
+    print("Exiting application...")
+    exit(0)
+
+def view_patient_count():
+    print("Patient Count is : "+str(len(id_list)))
+
+def contains(id_list1,value):
+    for i in range(len(id_list1)):
+        if id_list1[i] == value:
+            return 1
+    return 0
+
+def UnFlatten(str1):
+    list1 = str1.split("|")
+    global Name,Age,Gender,Procedure,Consumables_used
+    Name = list1[2]
+    Age = list1[3]
+    Gender = list1[4]
+    Procedure = list1[5]
+    Consumables_used = list1[6]
+    if(contains(id_list,int(list1[1])) == 0):
+        id_list.append(int(list1[1]))
+
+def main_application(client):
+    while True:
+        client.published = False
+        display_menu()
+        choice = get_user_choice()
+        dict1 = {"1":add_patient,"2":view_patient_details,"3":view_patient_count,"4":exit_function}
+        dict1[choice]()
+            
+        # elif choice == "2":
+        #     print("Exiting application...")
+        #     exit(0)
+ 
+if __name__ == '__main__':
+    # Create Client
+    client = mqtt.Client("Client_1")
+ 
+    # Set Callbacks
+    set_callbacks(client)
+ 
+    client.subscribed = False
+    client.published = False
+ 
+    host = "localhost"
+    port = 1883
+ 
+    connect_client(host, port)
+ 
+    client.loop_start()
+ 
+    wait_for_connection(client)
+ 
+    client.subscribe("MedicalDevice")
+ 
+    wait_for_subscription(client)
+ 
+    main_application(client)
+ 
+    client.loop_stop()
+ 
+    client.disconnect()
 

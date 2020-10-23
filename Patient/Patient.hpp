@@ -4,6 +4,7 @@ using namespace std;
  
 class Patient
 {
+  public:
     int id;
     int age;
     string name;

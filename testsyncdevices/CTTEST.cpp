@@ -109,8 +109,6 @@ TEST_CASE("Edit Patient Name"){
     CT::add_patient();
     CT::edit_name();
     p = CT::pop_and_return_patient();
-    //cout<<patient_stack.size()<<endl;
-    cout<<p.name<<endl;
     REQUIRE(p.name == "Rachoti");
 }
 TEST_CASE("Edit Patient Age"){
@@ -118,7 +116,7 @@ TEST_CASE("Edit Patient Age"){
     CT::add_patient();
     CT::edit_age();
     p = CT::pop_and_return_patient();
-    cout<<p.age<<endl;
+    
     REQUIRE(p.age == 22);
 }
 TEST_CASE("Edit Patient gander"){
@@ -126,7 +124,7 @@ TEST_CASE("Edit Patient gander"){
     CT::add_patient();
     CT::edit_gender();
     p = CT::pop_and_return_patient();
-    cout<<p.gender<<endl;
+    
     REQUIRE(p.gender == "F");
 }
 TEST_CASE("Edit Patient Procedure"){
@@ -134,7 +132,7 @@ TEST_CASE("Edit Patient Procedure"){
     CT::add_patient();
     CT::edit_procedure();
     p = CT::pop_and_return_patient();
-    cout<<p.procedure<<endl;
+    
     REQUIRE(p.procedure == "ABCDEF");
 }
 TEST_CASE("Edit Patient Consumables Used"){
@@ -142,6 +140,6 @@ TEST_CASE("Edit Patient Consumables Used"){
     CT::add_patient();
     CT::edit_consumables_used();
     p = CT::pop_and_return_patient();
-    cout<<p.consumables_used<<endl;
+    
     REQUIRE(p.consumables_used == "VWXYZ");
 }

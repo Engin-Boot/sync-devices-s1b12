@@ -39,13 +39,13 @@ def on_message(client, userdata, msg):
     if(cathethercount<4):
         s = smtplib.SMTP('smtp.gmail.com', 587) 
         s.starttls() 
-        s.login("rachotibiradar007@gmail.com", "rachu1998") 
+        s.login("sendermail@gmail.com", "senderpassword") 
   
         # message to be sent 
         message = "Cathether count is low"
   
         # sending the mail 
-        s.sendmail("rachotibiradar007@gmail.com", "rachubiradar007@gmail.com", message) 
+        s.sendmail("sendermail@gmail.com", "receivermail@gmail.com", message) 
   
         # terminating the session 
         s.quit() 
